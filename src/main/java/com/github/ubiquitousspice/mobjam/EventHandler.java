@@ -68,7 +68,10 @@ public class EventHandler
 			final int cx = spawn.posX;
 			final int cz = spawn.posZ;
 			final int highest = getHighestBlock(world, cx, cz);
+			EnumGameType gamemode = getGameMode();
+			if (gamemode == MobJam.GAMEMODE){
 			genFort(world, cx, highest, cz);
+			}
 		}
 	}
 
@@ -190,4 +193,10 @@ public class EventHandler
 
 		return block.isBlockSolidOnSide(world, x, y, z, ForgeDirection.UP);
 	}
+
+	private EnumGameType getGameMode()
+	{
+		return ObfuscationReflectionHelper.getPrivateValue(PlayerControllerMP.class, HackedPlayerController.class, "currentGameType", "field_78779_k");
+	}
+
 }
